@@ -2,6 +2,7 @@
 from telegram import Update
 from telegram.ext import CommandHandler, CallbackContext, ContextTypes, ApplicationBuilder
 import configparser
+import logging
 
 config = configparser.ConfigParser()
 config.read("config.ini")
@@ -9,6 +10,8 @@ config.read("config.ini")
 bot_token = config.get("secrets", "TELEGRAM_ACCESS_TOKEN")
 channel_id = config.get("secrets", "SECRET_CHANNEL_ID")
 group_id = config.get("secrets", "GROUP_ID")
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 async def repost(update: Update, context: CallbackContext):
     original_message = update.message.reply_to_message
@@ -21,10 +24,10 @@ async def repost(update: Update, context: CallbackContext):
                                             from_chat_id=original_message.chat.id,
                                             message_id=original_message.message_id)
     else:
-        await update.effective_message.reply_text("Reply to a message with /repost to forward it.")
+        await update.effective_message.reply_text("Ответьте на сообщение командой /repost чтобы переслать его.")
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await context.bot.send_message(chat_id=update.effective_chat.id, text="I'm a bot, please talk to me!")
+    await context.bot.send_message(chat_id=update.effective_chat.id, text="Я бот, который пересылает сообщения. Меня можно добавить в чат, чтобы я пересылал сообщения в канал или в другой чат. Свяжитесь с моим создателем, если вам это интересно.")
 
 def main():
     print("I'm working")
