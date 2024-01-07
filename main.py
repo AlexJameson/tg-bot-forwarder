@@ -24,10 +24,10 @@ async def repost(update: Update, context: CallbackContext):
                                             from_chat_id=original_message.chat.id,
                                             message_id=original_message.message_id)
     else:
-        await update.effective_message.reply_text("Ответьте на сообщение командой /repost чтобы переслать его.")
+        await update.effective_message.reply_text("Ответьте на сообщение от полльзователя командой /repost.")
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await context.bot.send_message(chat_id=update.effective_chat.id, text="Я бот, который пересылает сообщения. Меня можно добавить в чат, чтобы я пересылал сообщения в канал или в другой чат. Свяжитесь с моим создателем, если вам это интересно.")
+    await context.bot.send_message(chat_id=update.effective_chat.id, text="Я бот, который пересылает сообщения. Меня можно добавить в чат, чтобы я пересылал сообщения в канал или в другой чат. Свяжитесь с моим создателем по ссылке в описании, если вам это интересно.")
 
 def main():
     print("I'm working")
