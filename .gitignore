@@ -161,3 +161,5 @@ cython_debug/
 
 config.ini
 nohup.out
+db.json
+.main.py.swp
