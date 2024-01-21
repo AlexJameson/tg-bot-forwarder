@@ -163,3 +163,4 @@ config.ini
 nohup.out
 db.json
 .main.py.swp
+logs.txt

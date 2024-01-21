@@ -12,11 +12,13 @@ config.read("config.ini")
 bot_token = config.get("secrets", "TELEGRAM_ACCESS_TOKEN")
 channel_id = config.get("secrets", "SECRET_CHANNEL_ID")
 group_id = config.get("secrets", "GROUP_ID")
-pinned_message_id = config.get("secrets", "PINNED_MESSAGE_ID")
 
-db = TinyDB('db.json')
+db = TinyDB("db.json")
 
-logging.basicConfig(level=logging.WARNING, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logging.basicConfig(filename="logs.txt",
+                    filemode="a",
+                    level=logging.WARNING, 
+                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 async def handle_new_message(update: Update):
 
