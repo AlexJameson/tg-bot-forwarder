@@ -1,48 +1,58 @@
 # Telegram Forwarding Bot (MVP)
 
-This is a bot that allows forwarding messages from a group chat to a channel or another group chat. It is designed to create some kind of knowledge base in the target channel and can keep track of hashtags.
+This is a bot that allows forwarding messages from a group chat to a channel. It is designed to create some kind of knowledge base in the target channel and can keep track of hashtags.
 
 ## Overview
 
-This bot is built on top of the [python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot) library with features like asynchronicity introduced in v20+.
+This bot is built on top of the [python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot) library v20+.
 
-The main use-case is message forwarding. The bot has also several mechanics that allow you to add hashtags to label messages. The bot updates the last pinned message in the target channel to display the hashtag list and the count of each hashtag.
+The main use-case is simple message forwarding. Optionally, you can add hashtags in a simple way to mark your messages.
 
-The bot uses TinyDB as a persistent storage for hashtags. It is not obligatory to use hashtags - you can utilize this bot just fo forwarding without any additional actions required.
+The bot uses TinyDB as a persistent storage for hashtags so that you can extract them later. It is extremely easy to use and requires just a `json` file to store data.
 
 ## Installation and configuration
 
 This bot was developed and tested on Ubuntu 22.04 with Python v3.10.6.
 
-To run the bot, install two packages:
+To run the bot:
 
-* `pip install python-telegram-bot`
-* `pip install tinydb`
+1. install two packages:
 
-All secret data is stored in the configuration file with the following structure:
+   * `pip install python-telegram-bot`
+   * `pip install tinydb`
 
-```
-[secrets]
-TELEGRAM_ACCESS_TOKEN = <token_value>
-SECRET_CHANNEL_ID = <target_channel_id>
-```
+2. Create the `config.ini` file to store secret data with the following structure:
+
+   ```
+   [secrets]
+   TELEGRAM_ACCESS_TOKEN = <token_value>
+   SECRET_CHANNEL_ID = <target_channel_id>
+   ```
+
+3. Create an empty file named `db.json`. TinyDB will use it to store hashtags and their counters.
+
+Note: Just like other bots that process messages, this bot should be admin both in source chat and target channel. You need to disable the privacy mode too.
 
 ## Usage
 
-To forward a message, reply to it with the `/repost` command. Each forwarded message is preceeded with another message that contains a link to the original message in the source chat.
+### Simple forwarding
 
-This command also accepts a list of space-separated words as arguments. Note that each hashtag should be a single word without special symbols due to some bugs in the MarkdownV2 parsing engine. Prohibited symbols are the following: ```-_*[]()~`>#+=|{}.!```. The arguments are transformed to hashtags after forwarding. The bot adds the resulting hashtag list to the message with a link to the original message. You can do it as follows:
+To forward a message, reply to it with the `/repost` command. Each forwarded message is preceeded with another message that contains a link to the original message in the source chat. Thi is how it looks in the source chat:
 
-```
-/repost tag1 tag2 anothertag
-```
+![Alt text](assets/before-wo.png)
 
-The bot will send the message with the content described below:
+The result in the target channel:
 
-```
-Go to message (link).
-#tag1 #tag2 #anothertag
-```
+![Alt text](assets/after-wo.png)
 
-The bot automatically collects hashtags and updates their count in the last pinned message in the target chat/channel.
-Note: Since this bot is an MVP, I haven't implemented capability to handle hashtags in the forwarded message itself. It is a useful feature but it didn't match the initial scenario.
+### Forwarding and adding hashtags
+
+This command also accepts a list of space-separated words as optional arguments. Each argument should be a single word, and the following special symbols are prohibited: ```-_*[]()~`>#+=|{}.!```. The arguments are transformed to hashtags after forwarding. The bot adds the resulting hashtag list to the message with a link to the original message.
+
+You can do it as follows:
+
+![Source chat with args](assets/before.png)
+
+The bot will send forward the message message :
+
+![Target channel with args](assets/after.png)
