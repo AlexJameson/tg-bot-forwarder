@@ -73,16 +73,28 @@ async def repost(update: Update, context: CallbackContext):
                     db.update({'count': updated_count}, hashtag_query.hashtag == hashtag)
                 else:
                     db.insert({'hashtag': hashtag, 'count': 1})
+                    
+        message_text = original_message.text
+        hashtag_set_in_message = re.findall(r"#\w+", message_text)
 
-            # Here should be logic for handling and processing the forwarded message to extract hashtags
-            # However, I didn't manage to implement it. Good enough for MVP.
+        if hashtag_set_in_message:
+            for hashtag in hashtag_set_in_message:
+                hashtag_query = Query()
+                hashtag_entry = db.get(hashtag_query.hashtag == hashtag)
+                if hashtag_entry:
+                    updated_count = hashtag_entry['count'] + 1
+                    db.update({'count': updated_count}, hashtag_query.hashtag == hashtag)
+                else:
+                    db.insert({'hashtag': hashtag, 'count': 1})
+
+
     else:
         await update.effective_message.reply_text("Reply to a message with /repost.")
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text="I am a bot to forward messages.")
 
-async def main():
+def main():
     print("I'm working")
     application = ApplicationBuilder().token(bot_token).build()
     
