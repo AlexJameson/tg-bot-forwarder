@@ -1,19 +1,22 @@
 #!/usr/bin/env python3
-import configparser
 import logging
 import re
+import os
 from telegram import Update
 from telegram.ext import CommandHandler, CallbackContext, ContextTypes, ApplicationBuilder, MessageHandler, filters
 from tinydb import TinyDB, Query
 
-config = configparser.ConfigParser()
-config.read("config.ini")
+bot_token = os.environ.get("REPOSTER_TOKEN")
+channel_id = os.environ.get("SECRET_CHANNEL_ID")
+group_id = os.environ.get("SECRET_GROUP_ID")
 
-bot_token = config.get("secrets", "TELEGRAM_ACCESS_TOKEN")
-channel_id = config.get("secrets", "SECRET_CHANNEL_ID")
-group_id = config.get("secrets", "GROUP_ID")
+db_file = "./db.json"
 
-db = TinyDB("db.json")
+if not os.path.exists(db_file):
+    with open(db_file, "w") as file:
+        file.write("{}")
+
+db = TinyDB(db_file)
 
 logging.basicConfig(filename="logs.txt",
                     filemode="a",

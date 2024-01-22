@@ -21,15 +21,9 @@ To run the bot:
    * `pip install python-telegram-bot`
    * `pip install tinydb`
 
-2. Create the `config.ini` file to store secret data with the following structure:
+2. Set up the specified environment variables. 
 
-   ```
-   [secrets]
-   TELEGRAM_ACCESS_TOKEN = <token_value>
-   SECRET_CHANNEL_ID = <target_channel_id>
-   ```
-
-3. Create an empty file named `db.json`. TinyDB will use it to store hashtags and their counters.
+3. Run the `main.py` script. The bot will run until you manually stop it.
 
 Note: Just like other bots that process messages, this bot should be admin both in source chat and target channel. You need to disable the privacy mode too.
 
