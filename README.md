@@ -25,7 +25,8 @@ To run the bot:
 
 3. Run the `main.py` script. The bot will run until you manually stop it.
 
-Note: Just like other bots that process messages, this bot should be admin both in source chat and target channel. You need to disable the privacy mode too.
+> **Note**
+Just like other bots that process messages, this bot should be admin both in source chat and target channel. You need to disable the privacy mode too.
 
 ## Usage
 
