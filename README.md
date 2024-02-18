@@ -1,5 +1,8 @@
 # Telegram Forwarding Bot (MVP)
 
+> [!NOTE]
+> This bot is good enough for an MVP and is no longer maintained. For an enhanced version that already works in the largest Russian-speaking community of technical writers, see [Auto Forwarder Bot](https://github.com/AlexJameson/auto-forwarder-bot).
+
 This is a bot that allows forwarding messages from a group chat to a channel. It is designed to create some kind of knowledge base in the target channel and can keep track of hashtags.
 
 ## Overview
@@ -26,7 +29,7 @@ To run the bot:
 3. Run the `main.py` script. The bot will run until you manually stop it.
 
 > [!NOTE]
-> Just like other bots that process messages, this bot should be admin both in source chat and target channel. You need to disable the privacy mode too.
+> Just like other bots that process messages, this bot should be admin in the target channel. You need to disable the privacy mode too.
 
 ## Usage
 
